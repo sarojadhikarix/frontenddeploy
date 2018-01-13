@@ -1,0 +1,59 @@
+<app-header-secondary></app-header-secondary>
+<!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single submit-page">
+	<div class="container">
+
+		<div class="sixteen columns">
+			<h2><i class="fa fa-cog"></i>Account settings</h2>
+		</div>
+
+	</div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container">
+
+	<!-- Submit Page -->
+	<div class="sixteen columns">
+		<div class="submit-page">
+
+			<!-- Title -->
+			<div class="form">
+				<h5>Name</h5>
+				<input class="search-field" [(ngModel)]="userInfo.name" type="text" placeholder="" readonly/>
+			</div>
+
+
+			<!-- Email -->
+			<div class="form">
+				<h5>Email</h5>
+				<input class="search-field" [(ngModel)]="userInfo.email" type="text" placeholder="mail@example.com" readonly/>
+			</div>
+
+			<!-- cv -->
+			<div *ngIf="error || propicfileerror || propicerror?.cv_link" class="notification error closeable">
+				<p><span>Error!</span> {{error}} {{propicfileerror}} {{propicerror?.propic[0]}}</p>
+				<a class="close" href="#"></a>
+			</div>
+
+			<div *ngIf="success" class="notification success closeable">
+				<p><span>Success!</span> {{success}}</p>
+				<a class="close" href="#"></a>
+			</div>
+
+			<div class="form">
+				<h5>Profile picture <span></span></h5>
+				<label class="upload-btn">
+				    <input id="propicfileinput" (change)="fileChangeEvent($event)" type="file" />
+				    <i class="fa fa-upload"></i> Upload New
+				</label>
+				<img [src]="picture_link" (error)="updateLink()" style="max-width:200px; max-height:200px; border-radius:20px;">
+				
+			</div>
+		</div>
+	</div>
+
+</div>

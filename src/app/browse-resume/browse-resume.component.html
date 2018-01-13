@@ -1,0 +1,88 @@
+<app-header-secondary></app-header-secondary>
+<!-- Titlebar
+================================================== -->
+<div id="titlebar">
+	<div class="container sixteen columns">
+		<div class="ten columns">
+			<h2>Search resume</h2>
+			<span *ngIf="count != 0">We found {{count}} resume matching:</span>
+			<span *ngIf="count == 0">No resume found.</span>
+		</div>
+
+	</div>
+</div>
+
+
+<!-- Content
+===================================================== -->
+<div class="container">
+	<div class="eleven columns">
+		<div class="search-container" style="padding:0px 0px 30px 0px !important;">
+			<!-- Form -->
+			<input type="text" style="border:1px solid;" class="ico-01" [(ngModel)]="search.keyword" placeholder="Keywords" value=""
+			/>
+			<input type="text" style="border:1px solid;" class="ico-02" [(ngModel)]="search.location" placeholder="Location" value=""
+			/>
+			<button (click)="searchCV()"><i class="fa fa-search"></i></button>
+		</div>
+	</div>
+	<!-- Recent Jobs -->
+	<div class="eleven columns">
+		<div class="padding-right">
+
+			<ul class="resumes-list">
+				<div *ngFor="let cv of cvs | slice:sliceStart:sliceEnd; let j =index">
+					<li><a routerLink="/resume-page/{{cv.user.data.id}}/{{cv.user.data.email}}">
+						<img *ngIf="cv.user.data.propic == 1"  [src]="picture_link_start + cv.user.data.id + picture_link_end"  style="max-width:200px; max-height:200px; border-radius:20px;">
+						<img *ngIf="cv.user.data.propic == 0"  [src]="picture_link_start + picture_error" style="max-width:200px; max-height:200px; border-radius:20px;">
+						<div class="resumes-list-content">
+							<h4>{{cv.user.data.name}} <span>{{cv.professional_title}}</span></h4>
+							<span><i class="fa fa-map-marker"></i>{{cv.address}}</span>
+							<span><i class="fa fa-money"></i>Good</span>
+							<p>{{cv.wish}}</p>
+
+							<div class="skills">
+								<span>{{cv.skills}}</span>
+							</div>
+							<div class="clearfix"></div>
+
+						</div>
+						</a>
+						<div class="clearfix"></div>
+					</li>
+				</div>
+			</ul>
+
+			<div class="clearfix"></div>
+
+			<div class="pagination-container">
+				<nav class="pagination">
+					<ul>
+						<li style="margin-left:5px; cursor: pointer;" (click)="changePage(i)" *ngFor="let page of numOfPages; let i = index"><a id="pagination{{i}}">{{i+1}}</a></li>
+					</ul>
+				</nav>
+
+				<nav class="pagination-next-prev">
+					<ul>
+						<!-- <li><a href="#" class="prev">Previous</a></li>
+						<li><a href="#" class="next">Next</a></li> -->
+					</ul>
+				</nav>
+			</div>
+
+		</div>
+	</div>
+
+
+	<!-- Widgets -->
+	<div class="five columns">
+
+		<!-- Sort by -->
+		<div class="widget">
+			<h4>Interesting</h4>
+			Find a good resume for your job.
+		</div>
+	</div>
+	<!-- Widgets / End -->
+
+</div>

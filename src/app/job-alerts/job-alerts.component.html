@@ -1,0 +1,129 @@
+<app-header-secondary></app-header-secondary>
+<!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single">
+	<div class="container">
+
+		<div class="sixteen columns">
+			<h2>Job Alerts</h2>
+			<nav id="breadcrumbs">
+				<ul>
+					<li>You are here:</li>
+					<li><a href="#">Home</a></li>
+					<li>Job Alerts</li>
+				</ul>
+			</nav>
+		</div>
+
+		<div class="ten columns">
+			<span *ngIf="count != 0">We have {{count}} jobs matching according to your resume:</span>
+		</div>
+
+	</div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container">
+
+	<!-- Table -->
+	<div class="sixteen columns">
+
+		<p class="margin-bottom-25">Your job alerts are shown below.</p>
+
+		<table class="manage-table resumes responsive-table">
+
+			<tr>
+				<th><i class="fa fa-file-text"></i> Alert Name</th>
+				<th><i class="fa fa-calendar"></i> Created Date</th>
+				<th><i class="fa fa-tags"></i> Keywords</th>
+				<th><i class="fa fa-map-marker"></i> Location</th>
+				<th><i class="fa fa-clock-o"></i> Deadline</th>
+				<th><i class="fa fa-check-square-o"></i> Status</th>
+				<th></th>
+			</tr>
+
+			<!-- Item #1 -->
+			<tr routerLink="/job/{{job.id}}" style="cursor: pointer; cursor: hand;" *ngFor="let job of jobs | slice:sliceStart:sliceEnd; let j =index">
+				<td class="alert-name">{{job.title | limitTo:40}}</td>
+				<td>{{job.created_at.date | date:'mediumDate'}}</td>
+				<td class="keywords">{{job.keywords | limitTo:30}}</td>
+				<td>{{job.district | limitTo:20}}</td>
+				<td>{{job.finish | date:'mediumDate'}}</td>
+				<td><span *ngIf="job.status == 1">Enabled</span><span *ngIf="job.status == 0">Disabled</span></td>
+				<td class="action">
+					<a class="button" style="color:white; padding:10px;">See Details</a>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<div *ngIf="error != ''" class="notification error closeable">
+			<p><span>Oops!</span> {{error}}</p>
+			<a class="close" href="#"></a>
+		</div>
+
+		<a *ngIf="cv.status == 'not_found'" routerLink="/add-resume" class="button">Add Resume</a>
+		<br>
+		<div class="clearfix"></div>
+
+		<div class="pagination-container">
+			<nav class="pagination">
+				<ul>
+					<li style="margin-left:5px; cursor: pointer;" (click)="changePage(i)" *ngFor="let page of numOfPages; let i = index"><a id="pagination{{i}}">{{i+1}}</a></li>
+				</ul>
+			</nav>
+
+			<nav class="pagination-next-prev">
+				<ul>
+					<!-- <li><a href="#" class="prev">Previous</a></li>
+						<li><a href="#" class="next">Next</a></li> -->
+				</ul>
+			</nav>
+		</div>
+
+		<!-- <div id="small-dialog" class="zoom-anim-dialog mfp-hide apply-popup">
+			<div class="small-dialog-headline">
+				<h2>Add Alert</h2>
+			</div>
+
+			<div class="small-dialog-content">
+				<form action="#" method="get">
+					<input type="text" placeholder="Alert Name" value="" />
+					<input type="text" placeholder="Keyword" value="" />
+					<input type="text" placeholder="Location" value="" />
+
+					<!-- Select -->
+
+		<!--
+					<select data-placeholder="Email Frequency" class="chosen-select-no-single">
+						<option value="">Email Frequency</option>
+						<option value="1">Daily</option>
+						<option value="2">Weekly</option>
+						<option value="3">Fortnightly</option>
+					</select>
+
+					<div class="clearfix"></div>
+					<div class="margin-top-15"></div>
+
+					<!-- Select -->
+
+		<!--
+					<select data-placeholder="Job Type" class="chosen-select" multiple>
+						<option value="1">Full-Time</option>
+						<option value="2">Part-Time</option>
+						<option value="3">Internship</option>
+						<option value="4">Freelance</option>
+						<option value="5">Temporary</option>
+					</select>
+
+					<div class="margin-top-20"></div>
+					<div class="divider"></div>
+
+					<button class="send">Save Alert</button>
+				</form>
+			</div>
+		</div> -->
+	</div>
+
+</div>

@@ -1,0 +1,71 @@
+<app-header-secondary></app-header-secondary>
+<!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single">
+	<div class="container">
+
+		<div class="sixteen columns">
+			<h2>Manage Resumes</h2>
+			<nav id="breadcrumbs">
+				<ul>
+					<li>You are here:</li>
+					<li><a href="#">Home</a></li>
+					<li>Candidate Dashboard</li>
+				</ul>
+			</nav>
+		</div>
+
+	</div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container">
+
+	<!-- Table -->
+	<div class="sixteen columns">
+
+		<div *ngIf="message" class="notification success closeable">
+			<p><span></span> {{message}}</p>
+			<a class="close" href="#"></a>
+		</div>
+
+		<p class="margin-bottom-25">Your resume can be viewed, edited or removed below.</p>
+
+		<table class="manage-table resumes responsive-table">
+
+			<tr>
+				<th><i class="fa fa-user"></i> Name</th>
+				<th><i class="fa fa-file-text"></i> Title</th>
+				<th><i class="fa fa-map-marker"></i> Location</th>
+				<th><i class="fa fa-calendar"></i> Date Posted</th>
+				<th></th>
+			</tr>
+
+			<!-- Item #1 -->
+			<tr *ngIf="cv.status != 'not_found'">
+				<td class="title"><a href="#">{{userInfo.name}}{{cv.status}}</a></td>
+				<td>{{cv.professional_title | limitTo:20}}</td>
+				<td>{{cv.address | limitTo:20}}</td>
+				<td>{{cv.updated_at?.date | date:'mediumDate'}}</td>
+				<td class="action">
+					<a routerLink="/resume-page"><i class="fa  fa-eye"></i> Show</a>
+					<a (click)="deleteCV()" style="cursor: pointer;"  class="delete"><i class="fa fa-remove"></i> Delete</a>
+				</td>
+			</tr>
+
+		</table>
+		<br>
+		<!-- cv -->
+		<div *ngIf="cv.status == 'not_found'" class="notification error closeable">
+			<p><span>Oops!</span> You have not added your CV. Go to Add Resume, More chances to get hired.</p>
+			<a class="close" href="#"></a>
+		</div>
+		<br>
+
+		<a *ngIf="cv.status == 'not_found'" routerLink="/add-resume" class="button">Add Resume</a>
+
+	</div>
+
+</div>

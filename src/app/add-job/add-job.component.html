@@ -1,0 +1,176 @@
+<app-header-secondary></app-header-secondary>
+<!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single submit-page">
+	<div class="container">
+
+		<div class="sixteen columns">
+			<h2><i class="fa fa-plus-circle"></i> Add Job</h2>
+		</div>
+
+	</div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container">
+
+	<!-- Submit Page -->
+	<div class="sixteen columns">
+		<div class="submit-page">
+
+			<!-- Title -->
+			<div class="form">
+				<h5>Job Title<label *ngIf="joberror?.title" style="color:red;">*{{joberror?.title[0]}}</label></h5>
+				<input class="search-field" type="text" [(ngModel)]="job.title" />
+			</div>
+
+			<!-- Location -->
+			<div class="form">
+				<h5>Location<label *ngIf="joberror?.city || joberror?.country" style="color:red;">*City and Country field is required.</label></h5>
+				<input class="search-field three columns" type="text" placeholder="e.g. City" [(ngModel)]="job.city" />
+				<input class="search-field three columns" type="text" placeholder="e.g. District" [(ngModel)]="job.district" />
+				<input class="search-field three columns" type="text" placeholder="e.g. Zone" [(ngModel)]="job.zone" />
+				<input class="search-field three columns" type="text" placeholder="e.g. Country" [(ngModel)]="job.country" />
+				<div class="clearfix"></div>
+				<p class="note">Leave this blank if the location is not important</p>
+			</div>
+
+			<!-- Job Type -->
+			<div class="form">
+				<h5>Job Type<label *ngIf="joberror?.type" style="color:red;">*{{joberror?.type[0]}}</label></h5>
+				<select style="height:50px;" [(ngModel)]="job.type" data-placeholder="Full-Time" >
+					<option value="Full-Time">Full-Time</option>
+					<option value="Part-Time">Part-Time</option>
+					<option value="Internship">Internship</option>
+					<option value="Freelance">Freelance</option>
+				</select>
+			</div>
+
+
+			<!-- Choose Category -->
+			<div class="form">
+				<div class="select">
+					<h5>Category Type<label *ngIf="joberror?.type" style="color:red;">*{{joberror?.type[0]}}</label></h5>
+					<select style="height:50px;" [(ngModel)]="job.category_id"  >
+						<option value="1">Accounting / Finance</option>
+						<option value="2">Computer / IT</option>
+						<option value="3">Restaurant / Food Service</option>
+						<option value="4">Healthcare</option>
+						<option value="5">Construction / Facilities</option>
+						<option value="6">Automotive Jobs</option>
+						<option value="7">Education Training</option>
+						<option value="8">Healthcare</option>
+						<option value="9">Transportation / Logistics</option>
+					</select>
+				</div>
+			</div>
+
+			<!-- Tags -->
+			<div class="form">
+				<h5>keywords<label *ngIf="joberror?.keywords" style="color:red;">*{{joberror?.keywords[0]}}</label></h5>
+				<input class="search-field" type="text" placeholder="e.g. PHP, Social Media, Management" [(ngModel)]="job.keywords" />
+				<p class="note">Comma separate keywords, such as required skills or technologies, for the job.</p>
+			</div>
+
+
+			<!-- Description -->
+			<div class="form">
+				<h5>Description<label *ngIf="joberror?.description" style="color:red;">*{{joberror?.description[0]}}</label></h5>
+				<textarea class="WYSIWYG" [(ngModel)]="job.description" name="summary" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
+			</div>
+
+			<!-- Requirements -->
+			<div class="form">
+				<h5>Requirements<label *ngIf="joberror?.requirements" style="color:red;">*{{joberror?.requirements[0]}}</label></h5>
+				<textarea class="WYSIWYG" [(ngModel)]="job.requirements" name="summary" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
+			</div>
+			
+
+			<!-- Created Date -->
+			<div *ngIf="todo == 'add'" class="form">
+				<h5>Created Date <span>(optional)</span></h5>
+				<input style="height:30px;" data-role="date" type="date" placeholder="yyyy-mm-dd" [(ngModel)]="job.created_at.date">
+				<p class="note">Created date for new applicants.</p>
+			</div>
+
+			<!-- TClosing Date -->
+			<div class="form">
+				<h5>Deadline <label *ngIf="joberror?.finish" style="color:red;">*{{joberror?.finish[0]}}</label><label style="font-size:10px;" *ngIf="todo != 'add'">Current deadline: {{job.finish | date:'mediumDate'}}, Change the box if you want to change.</label></h5>
+				<input style="height:30px;" data-role="date" type="date" placeholder="yyyy-mm-dd" [(ngModel)]="job.finish">
+				<p class="note">Deadline for new applicants.</p>
+			</div>
+
+
+			<!-- Company Details -->
+			<div class="divider">
+				<h3>Company Details</h3>
+			</div>
+
+			<!-- Email -->
+			<div class="form">
+				<h5>Company Email<label *ngIf="joberror?.company_email" style="color:red;">*{{joberror?.company_email[0]}}</label></h5>
+				<input class="search-field" type="email" placeholder="mail@example.com" [(ngModel)]="job.company_email"/>
+			</div>
+
+			<!-- Company Name -->
+			<div class="form">
+				<h5>Company Name</h5>
+				<input type="text" placeholder="Enter the name of the company" [(ngModel)]="job.company_name">
+			</div>
+
+			<!-- Company Phone -->
+			<div class="form">
+				<h5>Company Phone<label *ngIf="joberror?.company_phone" style="color:red;">*{{joberror?.company_phone[0]}}</label></h5>
+				<input type="text" placeholder="eg. 00977XXXXXX with country code." [(ngModel)]="job.company_phone">
+			</div>
+
+			<!-- Website -->
+			<div class="form">
+				<h5>Company Website <span>(optional)</span></h5>
+				<input type="text" placeholder="http://" [(ngModel)]="job.company_website">
+			</div>
+
+			<!-- Teagline -->
+			<div class="form">
+				<h5>Tagline <span>(optional)</span></h5>
+				<input type="text" placeholder="Briefly describe your company">
+			</div>
+
+			<!-- Video -->
+			<div class="form">
+				<h5>Video <span>(optional)</span></h5>
+				<input type="text" placeholder="A link to a video about your company" [(ngModel)]="job.company_video">
+			</div>
+
+			<!-- Twitter -->
+			<div class="form">
+				<h5>Facebook Link<span>(optional)</span></h5>
+				<input type="text" placeholder="@yourcompany" [(ngModel)]="job.company_facebook">
+			</div>
+
+			<!-- Link to Logo -->
+			<div class="form">
+				<h5>Link to Company Logo<span>(optional)</span></h5>
+				<input type="text" placeholder="http://" [(ngModel)]="job.company_logo">
+			</div>
+			<!--<div class="form">
+				<h5>Logo <span>(optional)</span></h5>
+				<label class="upload-btn">
+				    <input type="file" multiple />
+				    <i class="fa fa-upload"></i> Browse
+				</label>
+				<span class="fake-input">No file selected</span>
+			</div>-->
+
+
+			<div class="divider margin-top-0"></div>
+			<a *ngIf="todo == 'add'" (click)="add()" class="button big margin-top-5">ADD<i class="fa fa-arrow-circle-right"></i></a>
+			<a *ngIf="todo != 'add'" (click)="update()" class="button big margin-top-5">UPDATE<i class="fa fa-arrow-circle-right"></i></a>
+
+
+		</div>
+	</div>
+
+</div>

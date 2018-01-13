@@ -1,0 +1,86 @@
+
+<!-- Header
+================================================== -->
+<header class="transparent sticky-header full-width">
+  <div class="container">
+    <div class="sixteen columns">
+
+      <!-- Logo -->
+      <div id="logo">
+        <h1><a routerLink="/"><img src="./assets/images/logo.png" alt="HopNep" /></a></h1>
+      </div>
+
+      <!-- Menu -->
+      <nav id="navigation" class="menu">
+        <ul id="responsive">
+
+          <li><a routerLink="/" id="current">Home</a></li>
+
+					<li *ngIf="role_id"><a>Pages <i class="ln ln-icon-Arrow-Down"></i></a>
+						<ul>
+							<li><a routerLink="/browse-jobs">Browse Jobs</a></li>
+							<li><a routerLink="/browse-categories">Browse Categories</a></li>
+							<!--<li><a href="pricing-tables.html">Pricing Tables</a></li>-->
+							<li><a routerLink="/contact">Contact</a></li>
+						</ul>
+					</li>
+					<li *ngIf="!role_id"><a routerLink="/browse-jobs">Browse Jobs</a></li>
+					<li *ngIf="!role_id"><a routerLink="/browse-categories">Browse Categories</a></li>
+					<!--<li><a href="pricing-tables.html">Pricing Tables</a></li>-->
+					<li *ngIf="!role_id"><a routerLink="/contact">Contact</a></li>
+
+          <li *ngIf="role_id == '1'"><a>For Candidates <i class="ln ln-icon-Arrow-Down"></i></a>
+            <ul>
+              <li><a routerLink="/resume-page/myself/none">Resume Page</a></li>
+              <li><a routerLink="/add-resume">Add Resume</a></li>
+              <li><a routerLink="/manage-resume">Manage Resumes</a></li>
+              <li><a routerLink="/job-alerts">Job Alerts</a></li>
+              <li><a routerLink="/appliedjobs">Applied Jobs</a></li>
+            </ul>
+          </li>
+
+          <li *ngIf="role_id == '2'"><a>For Employers <i class="ln ln-icon-Arrow-Down"></i></a>
+            <ul>
+							<li><a routerLink="/add-job/add">Add Job</a></li>
+							<li><a routerLink="/manage-jobs">Manage Jobs</a></li>
+							<li><a routerLink="/manage-application/none">Manage Applications</a></li>
+							<li><a routerLink="/browse-resume">Browse Resumes</a></li>
+            </ul>
+          </li>
+          <!-- <li><a href="blog.html">Blog</a></li> -->
+        </ul>
+
+
+        <ul  class="responsive float-right">
+          <li *ngIf="!username">
+            <a routerLink="/login"><i class="fa fa-lock"></i> Log In / <i class="fa fa-user"></i> Register</a></li>
+          <li *ngIf="username">
+            <a>{{username}}</a>
+            <ul>
+              <li><a routerLink="/user-account">Account</a></li>
+              <li><a style="cursor:pointer;" (click)="logout()">LogOut</a></li>
+            </ul>
+          </li>
+          <li *ngIf="role_id == '1'" style="position:relative;"><span *ngIf="matching_jobs" style="position:absolute; overflow:visible; font-size:7; top:-7px; right:-7px; border-radius:7px; background:red; z-index: 1; color:white; padding:2px;">{{matching_jobs}}</span>
+						<a routerLink="/job-alerts" style="padding:0px;">
+							<img [src]="picture_link" (error)="updateLink($event)" style="width:40px; height:40px; border-radius:20px;">
+						</a>
+          </li>
+          <li *ngIf="role_id == '2'" style="position:relative;"><span *ngIf="new_applicant" style="position:absolute; overflow:visible; font-size:7; top:-7px; right:-7px; border-radius:7px; background:red; z-index: 1; color:white; padding:2px;">{{new_applicant}}</span>
+						<a routerLink="/manage-jobs" style="padding:0px;">
+							<img [src]="picture_link" (error)="updateLink($event)" style="width:40px; height:40px; border-radius:20px;">
+						</a>
+					</li>
+        </ul>
+
+      </nav>
+
+      <!-- Navigation -->
+      <div id="mobile-navigation">
+        <a href="#menu" class="menu-trigger"><i class="fa fa-reorder"></i> Menu</a>
+      </div>
+
+    </div>
+  </div>
+</header>
+<div class="clearfix"></div>
